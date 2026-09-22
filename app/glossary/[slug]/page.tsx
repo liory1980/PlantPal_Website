@@ -1,0 +1,8 @@
+import {notFound} from 'next/navigation';
+import {glossary} from '@/lib/glossary';
+import {seedArticles} from '@/lib/repository';
+import {Breadcrumbs,pageMetadata,JsonLd} from '@/lib/seo';
+import {SITE_URL} from '@/lib/config';
+import {AppCTA} from '@/components/plantpal/shared';
+export async function generateMetadata({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const t=glossary.find(t=>t.slug===slug);return t?pageMetadata(`${t.name}: meaning & practical plant care`,t.definition,`/glossary/${t.slug}`):{title:'Term not found',robots:{index:false}}}
+export default async function TermPage({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const t=glossary.find(t=>t.slug===slug);if(!t)notFound();const guide=seedArticles.find(a=>a.slug===t.related);return <main id="main"><div className="shell article-shell"><Breadcrumbs items={[{name:'Glossary',href:'/glossary'},{name:t.name,href:`/glossary/${t.slug}`}]} /><article className="term-article"><span className="eyebrow">THE PLANTPAL GLOSSARY</span><h1>{t.name}<span className="heading-period">.</span></h1><p className="term-definition">{t.definition}</p><h2>What it means for your plants</h2><p>{t.practice}</p><div className="takeaway"><span className="eyebrow">IN PRACTICE</span><p>{t.example}</p></div>{guide&&<><h2>Put it into practice</h2><p>{guide.description}</p><a className="button" href={`/learn/${guide.slug}`}>{guide.title}</a></>}<div className="related-terms"><h3>Keep learning</h3><a href="/glossary">Back to the full A–Z glossary →</a></div></article></div><AppCTA/><JsonLd data={{'@context':'https://schema.org','@type':'DefinedTerm',name:t.name,description:t.definition,url:SITE_URL+'/glossary/'+t.slug,inDefinedTermSet:SITE_URL+'/glossary'}}/></main>}

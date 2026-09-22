@@ -1,0 +1,1 @@
+export default function NotFound(){return <main id="main" className="shell empty-state not-found"><span className="eyebrow">404 · A LITTLE OFF THE GARDEN PATH</span><h1>This page hasn’t<br/>put down roots.</h1><p>Try the plant care library to find what you need.</p><a className="button" href="/learn">Explore plant care</a></main>}
