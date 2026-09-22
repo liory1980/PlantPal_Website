@@ -22,8 +22,8 @@ export default function Terms() {
     <h2>Availability and your rights</h2>
     <p>We aim to keep the site useful and accurate, but pages may contain errors, change, or become temporarily unavailable. Nothing in these terms excludes rights or protections that applicable law does not allow to be excluded.</p>
     <h2>Privacy and account deletion</h2>
-    <p>See our <a href="/privacy">Privacy Policy</a> for the official AppsGiant policy. To close your PlantPal account, follow the <a href="/account-deletion">account-deletion instructions</a>.</p>
+    <p>See our <a href="/privacy">Privacy Policy</a> for information about how PlantPal handles your data. To close your PlantPal account, follow the <a href="/account-deletion">account-deletion instructions</a>.</p>
     <h2>Updates and contact</h2>
-    <p>We may revise these website terms and will show the updated date here. For questions about this site or permission to reuse content, email <a href="mailto:support@appsgiant.com">support@appsgiant.com</a>. You can also read the <a href="https://appsgiant.com/terms">AppsGiant website terms</a>.</p>
+    <p>We may revise these website terms and will show the updated date here. For questions about this site or permission to reuse content, email PlantPal support at <a href="mailto:support@appsgiant.com">support@appsgiant.com</a>.</p>
   </LegalPage>;
 }
