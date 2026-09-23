@@ -1,29 +1,4 @@
-import { LegalPage } from '@/components/plantpal/legal-page';
-import { pageMetadata } from '@/lib/seo';
-
-export const metadata = pageMetadata('Terms & Conditions', 'Terms for using the PlantPal promotional website, plant care articles, glossary, and other educational resources.', '/terms');
-
-export default function Terms() {
-  return <LegalPage title="Terms & Conditions" path="/terms">
-    <p className="legal-note">Last updated: September 23, 2026</p>
-    <p className="term-definition">These terms apply to this PlantPal website and its educational resources.</p>
-    <h2>Using this website</h2>
-    <p>By using this website, you agree to these terms. You may browse our plant guides, glossary, product explanations, and app information for lawful purposes. If you do not agree, please stop using the website.</p>
-    <p>Do not damage or disrupt the site, introduce malicious code, attempt to access restricted systems, or use it to infringe another person’s rights.</p>
-    <h2>Plant care information</h2>
-    <p>Our articles and guides offer general education. Plant needs vary with species, growing conditions, season, and the products you use. We cannot guarantee that a suggestion will resolve a particular plant problem or produce a specific result.</p>
-    <p>Follow the label and safety instructions on fertilizers, pesticides, and other products. Do not rely on this website or AI plant identification alone to decide whether a plant is edible or safe for people or pets.</p>
-    <h2>PlantPal app and store terms</h2>
-    <p>This website introduces PlantPal: AI Plant Care. Using the app, downloading it, or purchasing anything through an app store may involve additional terms shown in the app or by the store. Those terms govern the relevant service or transaction. Website descriptions do not replace the information displayed when you download or use the app.</p>
-    <h2>Content and ownership</h2>
-    <p>The PlantPal name, site design, and original content belong to their respective rights holders. You may read and link to our pages. Republishing or commercially reusing protected material requires permission unless the law allows it. References to third-party brands do not imply sponsorship or endorsement.</p>
-    <h2>External links</h2>
-    <p>Links may take you to app stores, product manufacturers, or other websites. Their operators control their content and services, and their own terms and privacy policies apply.</p>
-    <h2>Availability and your rights</h2>
-    <p>We aim to keep the site useful and accurate, but pages may contain errors, change, or become temporarily unavailable. Nothing in these terms excludes rights or protections that applicable law does not allow to be excluded.</p>
-    <h2>Privacy and account deletion</h2>
-    <p>See our <a href="/privacy">Privacy Policy</a> for information about how PlantPal handles your data. To close your PlantPal account, follow the <a href="/account-deletion">account-deletion instructions</a>.</p>
-    <h2>Updates and contact</h2>
-    <p>We may revise these website terms and will show the updated date here. For questions about this site or permission to reuse content, email PlantPal support at <a href="mailto:support@appsgiant.com">support@appsgiant.com</a>.</p>
-  </LegalPage>;
-}
+import {LegalPage} from '@/components/plantpal/legal-page';
+import {pageMetadata} from '@/lib/seo';
+export const metadata=pageMetadata('תנאי שימוש','התנאים החלים על השימוש באתר PlantPal, במדריכים, במילון ובתכנים החינוכיים.','/terms');
+export default function Terms(){return <LegalPage title="תנאי שימוש" path="/terms"><p className="legal-note">עדכון אחרון: 23 בספטמבר 2026</p><p className="term-definition">תנאים אלה חלים על אתר PlantPal ועל התכנים המופיעים בו.</p><h2>השימוש באתר</h2><p>השימוש באתר מהווה הסכמה לתנאים אלה. אפשר לעיין במדריכים, במילון, בהסברים על מוצרים ובמידע על האפליקציה למטרות חוקיות. אין לפגוע בפעילות האתר, להחדיר קוד זדוני, לנסות לגשת למערכות מוגנות או להפר זכויות של אחרים.</p><h2>מידע על טיפול בצמחים</h2><p>המאמרים והמדריכים הם מידע כללי. צורכי הצמח משתנים לפי המין, תנאי הגידול, העונה והמוצרים שבהם משתמשים. איננו יכולים להבטיח שהמלצה מסוימת תפתור בעיה או תביא לתוצאה מסוימת.</p><p>יש לפעול לפי התווית והוראות הבטיחות של דשנים, חומרי הדברה ומוצרים אחרים. אין להסתמך על האתר או על זיהוי באמצעות AI בלבד כדי לקבוע אם צמח ראוי למאכל או בטוח לבני אדם ולחיות מחמד.</p><h2>האפליקציה ותנאי חנויות האפליקציות</h2><p>האתר מציג את PlantPal: AI Plant Care. הורדת האפליקציה והשימוש בה עשויים להיות כפופים לתנאים נוספים שמוצגים באפליקציה או בחנות. התנאים הרלוונטיים לשירות או לעסקה יחולו עליהם.</p><h2>תוכן וזכויות</h2><p>השם PlantPal, עיצוב האתר והתוכן המקורי שייכים לבעלי הזכויות הרלוונטיים. אפשר לקרוא ולקשר לעמודים. פרסום מחדש או שימוש מסחרי בחומר מוגן דורשים רשות, אלא אם הדין מתיר אחרת. אזכור מותגים אינו מעיד על חסות או המלצה.</p><h2>קישורים חיצוניים</h2><p>קישורים עשויים להוביל לחנויות אפליקציות, ליצרני מוצרים או לאתרים אחרים. מפעילי האתרים אחראים לתוכן ולשירותים שלהם, והתנאים ומדיניות הפרטיות שלהם חלים.</p><h2>זמינות וזכויות משתמשים</h2><p>אנחנו שואפים לשמור על אתר שימושי ומדויק, אך תוכן עשוי להשתנות, להכיל טעויות או לא להיות זמין זמנית. אין בתנאים אלה כדי לשלול זכות או הגנה שהדין אינו מאפשר לשלול.</p><h2>פרטיות ומחיקת חשבון</h2><p>מידע נוסף נמצא ב<a href="/privacy">מדיניות הפרטיות</a>. לסגירת חשבון PlantPal פעלו לפי <a href="/account-deletion">הוראות מחיקת החשבון</a>.</p><h2>עדכונים ויצירת קשר</h2><p>אנחנו עשויים לעדכן את התנאים ונציג כאן את תאריך העדכון. לשאלות אפשר לפנות אל <a href="mailto:support@appsgiant.com">support@appsgiant.com</a>.</p></LegalPage>}

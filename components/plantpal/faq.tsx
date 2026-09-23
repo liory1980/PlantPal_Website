@@ -1,9 +1,10 @@
 'use client';
-import {Accordion,AccordionItem,AccordionTrigger,AccordionContent} from '@/components/ui/accordion';
-export function FAQ(){return <Accordion type="single" collapsible className="faq">{[
- ['Can PlantPal identify a plant from a photo?','Yes. Take a photo to get an AI identification and related care information. Photo quality and similar-looking species can affect the result, so check the identification before making important care decisions.'],
- ['Does PlantPal remind me to water and fertilize?','You can create watering and fertilizing reminders for each plant. Check the plant and its potting mix when a reminder arrives, because its needs change with light, season, and growing conditions.'],
- ['What does the light meter measure?','PlantPal lets you check current brightness in lux and see guidance about the light around your plant. Phone measurements are estimates; compare readings at leaf height at different times of day.'],
- ['How does Plant Sitter help while I’m away?','Plant Sitter helps someone else care for your plants while you are away. Pair it with clear location notes and a practical handover so a friend, family member, or colleague knows what to check.'],
- ['Where can I download the app?','PlantPal: AI Plant Care is available on the App Store for iOS and Google Play for Android. Choose your store to open the official listing.'],
-].map(([q,a],i)=><AccordionItem key={q} value={String(i)}><AccordionTrigger>{q}</AccordionTrigger><AccordionContent><p>{a}</p></AccordionContent></AccordionItem>)}</Accordion>}
+import {Accordion,AccordionContent,AccordionItem,AccordionTrigger} from '@/components/ui/accordion';
+const questions=[
+  ['איך PlantPal מזהה צמח?','מצלמים את הצמח והאפליקציה משתמשת בבינה מלאכותית כדי להציע זיהוי ומידע רלוונטי. מומלץ לצלם עלים, גבעול ופרטים בולטים באור טוב, ולבחון את התוצאה לצד הצמח עצמו.'],
+  ['האם התזכורת אומרת שחייבים להשקות?','התזכורת מזמינה לבדוק את הצמח. לפני השקיה בודקים את הלחות במצע, את משקל העציץ ואת מצב העלים. התנאים בבית והעונה משפיעים על קצב הייבוש.'],
+  ['מה עושה מד האור?','מד האור מציג את עוצמת התאורה בלוקס ועוזר להשוות בין מיקומים וזמנים. מדידה רגעית אינה מתארת יום שלם, ולכן כדאי למדוד כמה פעמים בגובה העלים.'],
+  ['מהו Plant Sitter?','כלי שמרכז הנחיות טיפול ברורות עבור מי ששומר על הצמחים בזמן שאתם בחופשה או מחוץ לבית. כך קל להמשיך את השגרה בלי לנחש.'],
+  ['האם אפשר לנהל הרבה צמחים?','כן. אפשר לתעד את אוסף הצמחים ולארגן אותו לפי אזורים כמו סלון, חדר שינה, משרד או מרפסת, עם מידע ותזכורות לכל צמח.'],
+];
+export function FAQ(){return <Accordion className="faq">{questions.map(([q,a],i)=><AccordionItem key={q} value={`q-${i}`}><AccordionTrigger>{q}</AccordionTrigger><AccordionContent><p>{a}</p></AccordionContent></AccordionItem>)}</Accordion>}

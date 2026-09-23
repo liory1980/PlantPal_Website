@@ -1,8 +1,8 @@
 import type {Category} from './config';
 export type Section={heading:string;paragraphs:string[];bullets?:string[]};
-export type Article={slug:string;title:string;category:Category;description:string;takeaway:string;sections:Section[];related:string[];sources:{title:string;url:string}[];publishedAt:string;updatedAt:string;author:string;status:'draft'|'published';contentHash?:string};
+export type Article={slug:string;title:string;category:Category;description:string;takeaway:string;sections:Section[];related:string[];sources:{title:string;url:string}[];publishedAt:string;updatedAt:string;author:string;status:'draft'|'published';locale?:'he'|'en'|'ar';contentHash?:string};
 export const section=(heading:string,text:string,bullets?:string[]):Section=>({heading,paragraphs:text.split('\n\n'),...(bullets?{bullets}:{})});
-const article=(slug:string,title:string,category:Category,description:string,takeaway:string,sections:Section[],related:string[],sources:Article['sources']=[]):Article=>({slug,title,category,description,takeaway,sections,related,sources,publishedAt:'2026-09-22T20:00:00.000Z',updatedAt:'2026-09-22T20:00:00.000Z',author:'PlantPal',status:'published'});
+const article=(slug:string,title:string,category:Category,description:string,takeaway:string,sections:Section[],related:string[],sources:Article['sources']=[]):Article=>({slug,title,category,description,takeaway,sections,related,sources,publishedAt:'2026-09-22T20:00:00.000Z',updatedAt:'2026-09-22T20:00:00.000Z',author:'PlantPal',status:'published',locale:'he'});
 const s=section;
 export const articles:Article[]=[
 article('houseplant-care-for-beginners','Houseplant care for beginners: your first healthy routine','plant-care','Start caring for houseplants with a simple routine for light, watering, drainage, feeding, and checking for problems.','Choose a plant for the light you actually have. Then build a habit of checking its needs before acting.',[

@@ -2,12 +2,12 @@ export type Platform = { x: number; z: number; radius: number; height: number };
 export type Hazard = { x: number; z: number; axis: 'x' | 'z'; range: number; speed: number; phase: number };
 export type Level = { name: string; description: string; seconds: number; color: number; platforms: Platform[]; hazards: Hazard[] };
 export const LEVELS: Level[] = [
-  { name: 'Morning meadow', description: 'Find your feet. Jump onto the stones and gather every sun.', seconds: 90, color: 0xaec397,
+  { name: 'אחו הבוקר', description: 'לומדים לזוז, קופצים בין האבנים ואוספים את כל השמשות.', seconds: 90, color: 0xaec397,
     platforms: [{ x: -3, z: 1.5, radius: 1, height: .28 }, { x: 3, z: 1.2, radius: 1, height: .55 }, { x: -4, z: -2.1, radius: 1, height: .72 }, { x: 0, z: -2.4, radius: 1.1, height: 1.05 }, { x: 4, z: -2.4, radius: 1, height: .85 }], hazards: [] },
-  { name: 'Bramble crossing', description: 'Smaller stones. Wandering brambles. Jump over the orange hazards.', seconds: 80, color: 0x91b5a4,
+  { name: 'מעבר הקוצים', description: 'האבנים קטנות יותר והקוצים זזים. קפצו מעל המכשולים הכתומים.', seconds: 80, color: 0x91b5a4,
     platforms: [{ x: -3.8, z: 2, radius: .8, height: .55 }, { x: 3.8, z: 2, radius: .8, height: .7 }, { x: -4.5, z: -1.8, radius: .75, height: 1.1 }, { x: -1.5, z: -2, radius: .75, height: .95 }, { x: 1.5, z: -2.3, radius: .7, height: 1.2 }, { x: 4.5, z: -1.8, radius: .8, height: 1.05 }],
     hazards: [{ x: 0, z: .1, axis: 'x', range: 5.7, speed: .8, phase: 1.5 }, { x: 0, z: -1.5, axis: 'z', range: 1.8, speed: 1.1, phase: .5 }] },
-  { name: 'Golden-hour dash', description: 'Seven suns, taller stones, and faster brambles. Make every jump count.', seconds: 70, color: 0xc4b786,
+  { name: 'מרוץ שעת הזהב', description: 'שבע שמשות, אבנים גבוהות וקוצים מהירים. כל קפיצה חשובה.', seconds: 70, color: 0xc4b786,
     platforms: [{ x: -4.7, z: 2.2, radius: .7, height: .7 }, { x: -2.2, z: .8, radius: .65, height: 1.2 }, { x: 2.2, z: .8, radius: .65, height: 1.25 }, { x: 4.7, z: 2.2, radius: .7, height: .75 }, { x: -4.5, z: -2.5, radius: .65, height: 1.25 }, { x: 0, z: -2.7, radius: .7, height: 1.3 }, { x: 4.5, z: -2.5, radius: .65, height: 1.3 }],
     hazards: [{ x: 0, z: -.6, axis: 'x', range: 5.8, speed: 1.25, phase: 0 }, { x: -1.1, z: 0, axis: 'z', range: 3.2, speed: 1, phase: 2 }, { x: 1.1, z: 0, axis: 'z', range: 3.2, speed: 1.2, phase: 4 }] },
 ];

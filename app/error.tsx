@@ -1,2 +1,2 @@
 'use client';
-export default function ErrorPage({reset}:{reset:()=>void}){return <main id="main" className="shell empty-state"><h1>The library needs a moment.</h1><p>We couldn’t load the content right now. Please try again shortly.</p><button className="button" onClick={()=>reset()}>Try again</button><a className="text-link" href="/">Back to PlantPal</a></main>}
+export default function ErrorPage({reset}:{reset:()=>void}){return <main id="main" className="shell empty-state"><h1>הספרייה צריכה רגע.</h1><p>לא הצלחנו לטעון את התוכן כרגע. נסו שוב בעוד רגע.</p><button className="button" onClick={()=>reset()}>ניסיון נוסף</button><a className="text-link" href="/">חזרה ל־PlantPal</a></main>}
