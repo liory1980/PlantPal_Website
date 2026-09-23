@@ -12,7 +12,7 @@ export const locales = {
 } as const;
 
 export type Locale = keyof typeof locales;
-export const defaultLocale: Locale = 'he';
+export const defaultLocale: Locale = 'en';
 export const activeLocales: Locale[] = ['he','en','fr','it','hi','zh','ar','pt','ru','es'];
 export const locale = locales[defaultLocale];
 
