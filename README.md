@@ -74,3 +74,9 @@ At public launch, verify the domain in Google Search Console, submit `/sitemap.x
 AI drafting runs on the PC. The hosted site requires no OpenAI key.
 
 Implementation references: [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs) and [OpenAI web search](https://developers.openai.com/api/docs/guides/tools-web-search). Horticultural/product links appear in relevant guides. See [ASSETS.md](ASSETS.md) for image provenance.
+
+## Interactive homepage
+
+The full-width hero is 600–800px tall (720px on mobile), with an optimized greenhouse image, gentle motion, a pause control, and reduced-motion support. The WebGL playground below it lazy-loads Three.js and the owner's optimized plant model only when the game enters view. Arrow keys or WASD move, Space jumps, Escape pauses; pointer controls support phones. Keyboard input is scoped to the focused garden. The game pauses when offscreen or the browser loses focus and has load/error recovery. Collect five sunbeams on the stepping stones to finish, then restart. No score or personal information is stored.
+
+Game files: `components/plantpal/plant-playground.tsx` (controls), `plant-game-engine.ts` (Three.js renderer), and `lib/plant-game-physics.ts` (movement/collision). See ASSETS.md for model provenance and optimization.
