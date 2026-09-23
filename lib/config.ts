@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://plantpal-ai-plant-care.track360-8139.chatgpt.site';
+export const SITE_URL = 'https://www.plantpal.ai';
 export const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.plantpalcare.app';
 export const APP_STORE_URL = 'https://apps.apple.com/us/app/plantpal-ai-plant-care/id6811434296';
 export const categories = [
