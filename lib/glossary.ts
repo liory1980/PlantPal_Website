@@ -67,4 +67,5 @@ const he:Record<string,[string,string,string,string]>={
 'root-rot':['ריקבון שורשים','מונח כללי להתפרקות וכשל של שורשים, לרוב בסביבה רטובה לאורך זמן.','בדקו מרקם ושלמות, הסירו תנאים חונקים והעריכו כמה רקמה בריאה נשארה.','צמח נבול במצע רטוב עם שורשים רכים דורש טיפול שונה מצמח צמא.'],
 'variegation':['מגוונות','דוגמאות של צבעים שונים ברקמת הצמח, לרוב כתמים בהירים או צהובים בעלים.','למגוונות גורמים שונים. עקבו אחר צימוח חדש ותגובה לאור.','פוטוס מגוון מאוד עלול לאבד דוגמה או לצמוח חלש בתאורה נמוכה.'],
 };
+export const englishGlossary:Term[]=terms.map(([name,definition,practice,example,related])=>({slug:name.toLowerCase().replace(/\s+/g,'-'),name,definition,practice,example,related})).sort((a,b)=>a.name.localeCompare(b.name));
 export const glossary:Term[]=terms.map(([name,definition,practice,example,related])=>{const slug=name.toLowerCase().replace(/\s+/g,'-');const t=he[slug];return {slug,name:t?.[0]||name,definition:t?.[1]||definition,practice:t?.[2]||practice,example:t?.[3]||example,related}}).sort((a,b)=>a.name.localeCompare(b.name,'he'));
