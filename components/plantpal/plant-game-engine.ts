@@ -1,13 +1,16 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
-import { initialPlayer, PLATFORMS, stepPlayer } from '@/lib/plant-game-physics';
+import { initialPlayer, stepPlayer } from '@/lib/plant-game-physics';
+import { LEVELS, newRun, advanceRun, hazardPosition, type RunState } from '@/lib/plant-game-levels';
+export type GameSnapshot = { level: number; score: number; total: number; lives: number; seconds: number; status: RunState['status'] };
 
 export type GameController = {
   setActive: (active: boolean) => void;
   setDirection: (key: string, pressed: boolean) => void;
   jump: () => void;
-  reset: () => void;
+  reset: (fromBeginning?: boolean) => void;
+  nextStage: () => void;
   clearKeys: () => void;
   dispose: () => void;
 };
@@ -15,7 +18,8 @@ export type GameController = {
 export function createPlantGame(host: HTMLDivElement, callbacks: {
   onReady: () => void;
   onProgress: (progress: number) => void;
-  onScore: (score: number) => void;
+  onState: (state: GameSnapshot) => void;
+  onEvent: (event: 'collect' | 'hit' | 'complete' | 'won' | 'lost') => void;
   onError: () => void;
 }): GameController {
   const scene = new THREE.Scene();
@@ -39,7 +43,9 @@ export function createPlantGame(host: HTMLDivElement, callbacks: {
   let previousTime = 0;
   let elapsed = 0;
   let pendingJump = false;
-  let score = 0;
+  let run = newRun();
+  let lastSnapshot = "";
+  const emitState = () => { const state: GameSnapshot = { level: run.level, score: run.collected.length, total: LEVELS[run.level].platforms.length, lives: run.lives, seconds: Math.max(0, Math.ceil(LEVELS[run.level].seconds - run.elapsed)), status: run.status }; const key = JSON.stringify(state); if (key !== lastSnapshot) { lastSnapshot = key; callbacks.onState(state); } };
   const keys = new Set<string>();
   const player = initialPlayer();
   const character = new THREE.Group();
@@ -76,27 +82,42 @@ export function createPlantGame(host: HTMLDivElement, callbacks: {
   const edge = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(13.3, 0.001, 8.8)), new THREE.LineBasicMaterial({ color: 0xd3dfaf, transparent: true, opacity: 0.55 }));
   edge.position.y = 0.025;
   scene.add(edge);
-  const tokens: { mesh: THREE.Group; found: boolean; x: number; y: number; z: number }[] = [];
-  const ringGeometry = new THREE.TorusGeometry(0.3, 0.07, 10, 28);
-  const coreGeometry = new THREE.IcosahedronGeometry(0.17, 1);
-  const gold = new THREE.MeshStandardMaterial({ color: 0xffd762, emissive: 0xf6b62a, emissiveIntensity: 0.35, roughness: 0.3, metalness: 0.25 });
-  for (const [i, p] of PLATFORMS.entries()) {
-    const platform = new THREE.Mesh(new THREE.CylinderGeometry(p.radius, p.radius + 0.08, p.height, 48), new THREE.MeshStandardMaterial({ color: [0x7f9e69, 0x849e6a, 0x728f64, 0xb3c38b, 0x77955f][i], roughness: 0.92 }));
-    platform.position.set(p.x, p.height / 2, p.z);
-    platform.castShadow = true;
-    platform.receiveShadow = true;
-    scene.add(platform);
-    const topRing = new THREE.Mesh(new THREE.TorusGeometry(p.radius * 0.82, 0.015, 4, 48), new THREE.MeshBasicMaterial({ color: 0xd5e4a8 }));
-    topRing.rotation.x = Math.PI / 2;
-    topRing.position.set(p.x, p.height + 0.015, p.z);
-    scene.add(topRing);
-    const token = new THREE.Group();
-    token.add(new THREE.Mesh(ringGeometry, gold), new THREE.Mesh(coreGeometry, gold));
-    const y = p.height + 1.1;
-    token.position.set(p.x, y, p.z);
-    scene.add(token);
-    tokens.push({ mesh: token, found: false, x: p.x, y, z: p.z });
+  const levelObjects = new THREE.Group();
+  scene.add(levelObjects);
+  const tokens: THREE.Group[] = [];
+  const hazards: THREE.Group[] = [];
+  const gold = () => new THREE.MeshStandardMaterial({color:0xffc72c,emissive:0xffa800,emissiveIntensity:.55,roughness:.35});
+  function buildLevel() {
+    releaseObject(levelObjects); levelObjects.clear(); tokens.length = 0; hazards.length = 0;
+    const level = LEVELS[run.level];
+    (ground.material as THREE.MeshStandardMaterial).color.setHex(level.color);
+    for (const [i,p] of level.platforms.entries()) {
+      const platform = new THREE.Mesh(new THREE.CylinderGeometry(p.radius,p.radius+.06,p.height,40),new THREE.MeshStandardMaterial({color:run.level===2?0x94815d:run.level===1?0x558b79:0x779960,roughness:.9}));
+      platform.position.set(p.x,p.height/2,p.z);platform.castShadow=true;platform.receiveShadow=true;levelObjects.add(platform);
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(p.radius*.83,.018,5,40),new THREE.MeshBasicMaterial({color:0xe0edb1}));rim.rotation.x=Math.PI/2;rim.position.set(p.x,p.height+.015,p.z);levelObjects.add(rim);
+      const token = new THREE.Group();
+      const core = new THREE.Mesh(new THREE.SphereGeometry(.235,20,14),gold());core.scale.z=.48;token.add(core);
+      for(let ray=0;ray<10;ray++){
+        const angle=ray*Math.PI/5;
+        const spike=new THREE.Mesh(new THREE.ConeGeometry(.065,.2,3),gold());
+        spike.position.set(Math.sin(angle)*.355,Math.cos(angle)*.355,0);spike.rotation.z=-angle;token.add(spike);
+      }
+      token.quaternion.copy(camera.quaternion);token.position.set(p.x,p.height+1.08,p.z);tokens.push(token);levelObjects.add(token);
+    }
+    for(const h of level.hazards){
+      const hazard=new THREE.Group();
+      const ball=new THREE.Mesh(new THREE.IcosahedronGeometry(.38,1),new THREE.MeshStandardMaterial({color:0xc15836,roughness:.7}));hazard.add(ball);
+      for(let i=0;i<8;i++){const angle=i*Math.PI/4;const thorn=new THREE.Mesh(new THREE.ConeGeometry(.09,.24,5),new THREE.MeshStandardMaterial({color:0x713729}));thorn.position.set(Math.cos(angle)*.42,Math.sin(angle)*.42,0);thorn.rotation.z=angle-Math.PI/2;hazard.add(thorn);}
+      const pos=hazardPosition(h,0);hazard.position.set(pos.x,.44,pos.z);hazards.push(hazard);levelObjects.add(hazard);
+    }
   }
+  const sparks = new THREE.Group(); scene.add(sparks);
+  const sparkGeometry = new THREE.SphereGeometry(.045,6,4);
+  const sparkMaterial = new THREE.MeshBasicMaterial({color:0xffdc63});
+  for(let i=0;i<14;i++)sparks.add(new THREE.Mesh(sparkGeometry,sparkMaterial));
+  let sparkLife=0;
+  sparks.visible=false;
+  function burst(position: THREE.Vector3) {sparks.position.copy(position);sparkLife=.6;sparks.visible=true;}
 
   const render = () => { if (!disposed) renderer.render(scene, camera); };
   const resize = () => {
@@ -124,7 +145,7 @@ export function createPlantGame(host: HTMLDivElement, callbacks: {
     elapsed += dt;
     const dx = Number(keys.has('right')) - Number(keys.has('left'));
     const dz = Number(keys.has('down')) - Number(keys.has('up'));
-    stepPlayer(player, dx, dz, dt, pendingJump);
+    stepPlayer(player, dx, dz, dt, pendingJump, LEVELS[run.level].platforms);
     pendingJump = false;
     character.position.set(player.x, player.y, player.z);
     const walking = dx !== 0 || dz !== 0;
@@ -136,27 +157,32 @@ export function createPlantGame(host: HTMLDivElement, callbacks: {
     body.rotation.z = walking && player.grounded ? Math.sin(elapsed * 13) * 0.065 : Math.sin(elapsed * 2) * 0.012;
     body.position.y = walking && player.grounded ? Math.abs(Math.sin(elapsed * 13)) * 0.06 : 0;
     body.scale.set(1, player.grounded ? 1 : 1.025, 1);
-    for (const [i, token] of tokens.entries()) {
-      if (token.found) continue;
-      token.mesh.rotation.y = elapsed * 1.7 + i;
-      token.mesh.position.y = token.y + Math.sin(elapsed * 2.5 + i) * 0.09;
-      if (Math.hypot(player.x - token.x, player.z - token.z) < 0.68 && Math.abs(player.y + 1.05 - token.y) < 0.5) {
-        token.found = true;
-        token.mesh.visible = false;
-        callbacks.onScore(++score);
-      }
-    }
+    const oldScore = run.collected.length;
+    const events = advanceRun(run,player,dt);
+    if(events.includes('hit')) { Object.assign(player, initialPlayer()); character.position.set(player.x,player.y,player.z); }
+    character.visible=run.invulnerable===0 || Math.floor(run.invulnerable*10)%2===0;
+    tokens.forEach((token,i)=>{
+      token.visible=!run.collected.includes(i);
+      token.quaternion.copy(camera.quaternion);token.rotateZ(elapsed*.5);
+      token.position.y=LEVELS[run.level].platforms[i].height+1.08+Math.sin(elapsed*2.5+i)*.07;
+    });
+    hazards.forEach((hazard,i)=>{const position=hazardPosition(LEVELS[run.level].hazards[i],run.elapsed);hazard.position.set(position.x,.44,position.z);hazard.rotation.z=elapsed*2.5;hazard.rotation.y=elapsed*.8;});
+    if(run.collected.length>oldScore)burst(tokens[run.collected[run.collected.length-1]].position);
+    if(sparkLife>0){sparkLife-=dt;const t=.6-sparkLife;sparks.children.forEach((spark,i)=>{const angle=i*Math.PI*2/14;spark.position.set(Math.cos(angle)*t*2,Math.sin(angle)*t*2-t*t,Math.sin(i*3)*t);spark.scale.setScalar(Math.max(0,sparkLife/.6));});sparks.visible=sparkLife>0;}
+    events.forEach(event=>callbacks.onEvent(event));
+    if(run.status!=='playing') {active=false;keys.clear();}
+    emitState();
     render();
     if (active) frame = requestAnimationFrame(tick);
   }
   const setActive = (value: boolean) => {
-    active = value;
+    active = value && run.status === 'playing';
     cancelAnimationFrame(frame);
     previousTime = 0;
-    if (value && ready && !disposed) frame = requestAnimationFrame(tick);
+    if (active && ready && !disposed) frame = requestAnimationFrame(tick);
     else { keys.clear(); pendingJump = false; render(); }
   };
-  const releaseObject = (object: THREE.Object3D) => {
+  function releaseObject(object: THREE.Object3D) {
     const textures = new Set<THREE.Texture>();
     object.traverse(node => {
       if (!(node instanceof THREE.Mesh) && !(node instanceof THREE.LineSegments)) return;
@@ -169,6 +195,8 @@ export function createPlantGame(host: HTMLDivElement, callbacks: {
     });
     for (const texture of textures) { texture.dispose(); const bitmap = texture.image; if (typeof ImageBitmap !== 'undefined' && bitmap instanceof ImageBitmap) bitmap.close(); }
   };
+  buildLevel();
+  emitState();
   const loader = new GLTFLoader();
   loader.load('/models/plantpal.glb', gltf => {
     if (disposed) { releaseObject(gltf.scene); return; }
@@ -194,12 +222,16 @@ export function createPlantGame(host: HTMLDivElement, callbacks: {
     setDirection(key, pressed) { if (pressed && active) keys.add(key); else keys.delete(key); },
     jump() { if (active) pendingJump = true; },
     clearKeys() { keys.clear(); pendingJump = false; },
-    reset() {
-      Object.assign(player, initialPlayer()); score = 0; elapsed = 0; keys.clear(); pendingJump = false;
-      character.position.set(player.x, player.y, player.z); character.rotation.set(0, 0, 0);
-      body.position.y = 0; body.rotation.set(0, 0, 0); body.scale.setScalar(1);
-      tokens.forEach(token => { token.found = false; token.mesh.visible = true; token.mesh.position.y = token.y; });
-      callbacks.onScore(0); render();
+    reset(fromBeginning = false) {
+      setActive(false);run = newRun(fromBeginning?0:run.level);elapsed=0;lastSnapshot='';
+      Object.assign(player, initialPlayer()); keys.clear(); pendingJump=false;
+      character.position.set(player.x,player.y,player.z);character.rotation.set(0,0,0);character.visible=true;
+      body.position.y=0;body.rotation.set(0,0,0);body.scale.setScalar(1);sparks.visible=false;sparkLife=0;
+      buildLevel();emitState();render();
+    },
+    nextStage() {
+      if(run.status!=='complete')return;
+      run=newRun(run.level+1);this.reset();
     },
     dispose() {
       disposed = true; active = false; cancelAnimationFrame(frame); resizeObserver.disconnect();

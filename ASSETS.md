@@ -19,3 +19,10 @@ The generated scene is decorative, not an identification reference or a claim ab
 Optimization command from the site folder:
 
 `node node_modules/@gltf-transform/cli/bin/cli.js optimize ../Meshy_AI_plantpal_realistic_3d_0922215031_image-to-3d-texture.glb public/models/plantpal.glb --compress false --texture-size 1024 --simplify-ratio 0.12 --simplify-error 0.002`
+
+## Primary-page backgrounds
+
+- `public/images/soil-care-hero.webp` (1672 × 941, 184 KB): generated potting-bench scene for soil and fertilizer pages. Original in `../hero-assets/soil-care-hero.png`.
+- `public/images/leaf-detail-hero.webp` (1672 × 941, 173 KB): generated dew-covered foliage for plant guides, troubleshooting, and glossary headers. Original in `../hero-assets/leaf-detail-hero.png`.
+- Both created with built-in imagegen for this site, one generation each. Photoreal botanical photography, dark left composition for readable text, subjects and warm sunlight on the right, no text or logos. Decorative images, not identification references.
+- Game sounds are short original oscillator melodies synthesized locally with Web Audio; no recordings, external audio requests, or autoplay before a play action.
