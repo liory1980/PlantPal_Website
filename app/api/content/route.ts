@@ -1,11 +1,12 @@
 import {authorized,readPayload,json,publishFailure,PublishError,hash,normalizedBody} from '@/lib/publishing';
-import {database,seedArticles} from '@/lib/repository';
+import {database,seedArticles,ensureContentSchema} from '@/lib/repository';
 import {SITE_URL} from '@/lib/config';
 export const dynamic='force-dynamic';
 export async function POST(request:Request){
  if(!await authorized(request))return json({error:'A valid publishing API key is required.'},401,{'WWW-Authenticate':'Bearer'});
  try{
-  const data=await readPayload(request);if(seedArticles.some(a=>a.slug===data.slug))throw new PublishError(409,'This slug belongs to the bundled editorial library. Edit its source file instead.');
+ const data=await readPayload(request);if(seedArticles.some(a=>a.slug===data.slug))throw new PublishError(409,'This slug belongs to the bundled editorial library. Edit its source file instead.');
+  await ensureContentSchema();
   const now=new Date().toISOString();const publishedAt=data.publishedAt||now;const contentHash=await hash(normalizedBody(data));
   const requestHash=await hash(JSON.stringify(data));
   const db=database();const existing=await db.prepare('SELECT revision FROM posts WHERE slug = ?').bind(data.slug).first<{revision:string}>();

@@ -1,9 +1,9 @@
-import {Search,ArrowUpRight,Clock,BookOpen} from 'lucide-react';
+import {Search,ArrowUpRight,Clock,BookOpen,Sprout,Droplets,Stethoscope,Shovel,Lightbulb} from 'lucide-react';
 import {Input} from '@/components/ui/input';
 import {Pagination,PaginationContent,PaginationItem,PaginationLink,PaginationPrevious,PaginationNext} from '@/components/ui/pagination';
 import {categories,type Category} from '@/lib/config';
 import {type Article,readingMinutes} from '@/lib/content';
-import {icons} from './shared';
+const icons={Sprout,Droplets,Stethoscope,Shovel,Lightbulb};
 export function ArticleCard({article:a}:{article:Article}){const c=categories.find(c=>c.slug===a.category)!;const Icon=icons[c.icon];return <a className={`library-card category-${a.category}`} href={`/learn/${a.slug}`}><div className="library-card-icon"><Icon size={25} strokeWidth={1.4}/><ArrowUpRight size={18}/></div><span className="eyebrow">{c.name}</span><h3>{a.title}</h3><p>{a.description}</p><span className="card-more"><span><Clock size={14}/> {readingMinutes(a)} דקות קריאה</span><span>למדריך <ArrowUpRight size={15}/></span></span></a>}
 export function Library({articles,category,q='',page=1}:{articles:Article[],category?:Category,q?:string,page?:number}){
  const terms=q.toLowerCase().trim().split(/\s+/).filter(Boolean);
