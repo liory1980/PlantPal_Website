@@ -22,6 +22,7 @@ Optimization command from the site folder:
 
 ## Primary-page backgrounds
 
+- `public/images/learn-grow-hero.webp` (1672 × 941, 153 KB): generated growth-progression scene for the Learn & Grow library in every language. Original in `../hero-assets/learn-grow-hero.png`.
 - `public/images/soil-care-hero.webp` (1672 × 941, 184 KB): generated potting-bench scene for soil and fertilizer pages. Original in `../hero-assets/soil-care-hero.png`.
 - `public/images/leaf-detail-hero.webp` (1672 × 941, 173 KB): generated dew-covered foliage for plant guides, troubleshooting, and glossary headers. Original in `../hero-assets/leaf-detail-hero.png`.
 - Both created with built-in imagegen for this site, one generation each. Photoreal botanical photography, dark left composition for readable text, subjects and warm sunlight on the right, no text or logos. Decorative images, not identification references.

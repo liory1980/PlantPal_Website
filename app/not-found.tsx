@@ -1,1 +1,2 @@
-export default function NotFound(){return <main id="main" className="shell empty-state not-found"><span className="eyebrow">404 · סטינו קצת מהשביל</span><h1>העמוד הזה<br/>עוד לא הכה שורש.</h1><p>בספריית הטיפול תוכלו למצוא את המידע שחיפשתם.</p><a className="button" href="/learn">למדריכי הצמחים</a></main>}
+import Link from 'next/link';
+export default function NotFound(){return <main id="main" className="shell empty-state not-found" lang="en" dir="ltr"><span className="eyebrow">404 · A little off the garden path</span><h1>This page hasn’t<br/>put down roots.</h1><p>You may find what you need in the PlantPal care library.</p><Link className="button" href="/learn">Explore plant guides</Link></main>}
