@@ -11,14 +11,14 @@ export function ImmersiveHero() {
     <div className="hero-shade" />
     <div className="shell immersive-hero-content">
       <div className="immersive-hero-copy">
-        <span className="eyebrow"><Leaf size={16} /> הפינה הירוקה שלכם</span>
-        <h1 id="hero-title">קצת תשומת לב.<br />הרבה יותר <em>חיים.</em></h1>
-        <p>הכירו את הצמחים שלכם. הבינו מה הם צריכים.<br className="desktop-break" /> תנו להם לשגשג עם PlantPal.</p>
+        <span className="eyebrow"><Leaf size={16} /> טיפול בצמחים, בלי לנחש</span>
+        <h1 id="hero-title">לכל צמח יש<br />טיפול <em>שמתאים לו.</em></h1>
+        <p>PlantPal עוזרת לכם להבין איך לטפל בכל צמח ולבנות שגרה שמתאימה לו.</p>
         <DownloadButton />
         <a className="hero-learn-link" href="/learn">למדריכי הטיפול <ArrowUpRight size={18} /></a>
       </div>
       <div className="hero-bottom-row">
-        <span>צמחים בריאים יותר. ימים ירוקים יותר.</span>
+        <span>יותר ידע על הצמחים. יותר ביטחון בטיפול.</span>
         <a className="hero-play-link" href="#plant-playground"><span>יוצאים להרפתקה קטנה.<strong>בואו לשחק עם PlantPal</strong></span><ArrowDown size={21} /></a>
         <button className="hero-motion-button" onClick={() => setPaused(!paused)} aria-label={paused ? 'הפעלת תנועת הרקע' : 'עצירת תנועת הרקע'} aria-pressed={paused}>{paused ? <Play size={16} /> : <Pause size={16} />}</button>
       </div>
