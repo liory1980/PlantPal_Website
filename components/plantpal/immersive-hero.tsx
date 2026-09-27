@@ -12,7 +12,7 @@ export function ImmersiveHero() {
     <div className="shell immersive-hero-content">
       <div className="immersive-hero-copy">
         <span className="eyebrow"><Leaf size={16} /> טיפול בצמחים, בלי לנחש</span>
-        <h1 id="hero-title">מכירים את הצמחים.<br />מבינים מה <em>הם צריכים.</em></h1>
+        <h1 id="hero-title">לכל צמח יש<br />טיפול <em>שמתאים לו.</em></h1>
         <p>PlantPal עוזרת לכם להבין איך לטפל בכל צמח ולבנות שגרה שמתאימה לו.</p>
         <DownloadButton />
         <a className="hero-learn-link" href="/learn">למדריכי הטיפול <ArrowUpRight size={18} /></a>
