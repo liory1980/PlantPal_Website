@@ -1,0 +1,104 @@
+.desktop-nav a[aria-current="page"]{color:var(--green);font-weight:700}
+.plants-hero{height:clamp(590px,74svh,790px);position:relative;overflow:hidden;background:#14291c;color:#fff}
+.plants-hero-photo,.plants-hero-shade{position:absolute;inset:0;width:100%;height:100%}
+.plants-hero-photo{object-fit:cover;object-position:center}
+.plants-hero-shade{background:linear-gradient(90deg,rgba(5,24,15,.84),rgba(5,24,15,.55) 38%,rgba(5,24,15,.08) 82%),linear-gradient(0deg,rgba(5,24,15,.48),transparent 22%)}
+.plants-hero-inner{position:relative;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding-block:30px 36px;direction:ltr}
+.plants-crumbs{display:flex;align-items:center;align-self:flex-start;gap:10px;color:#eef5e7;font-size:13px}
+.plants-crumbs a:hover{text-decoration:underline}
+.plants-hero-copy{max-width:630px;margin-block:auto;padding-block:30px}
+.plants-hero-copy .eyebrow{color:#d6ebc0;letter-spacing:2px}
+.plants-hero-copy h1{margin-top:24px;font-size:clamp(55px,6.5vw,94px);line-height:1.01;color:#fff}
+.plants-hero-copy h1 em{color:#c4df99;font-style:italic}
+.plants-hero-copy>p{color:#f0f4e8;max-width:535px;font-size:18px;line-height:1.78;margin-top:28px}
+.plants-hero-link{display:inline-flex;align-items:center;gap:13px;margin-top:30px;border-bottom:1px solid #d3e8bd;padding-bottom:9px;font-size:14px;font-weight:700;color:#fff}
+.plants-hero-link:hover{color:#d4ebba}
+.plants-hero-bottom{display:flex;justify-content:space-between;gap:20px;align-items:center;color:#e3ecd6;font-size:12px;letter-spacing:.5px}
+.plants-hero-bottom span:last-child{font-size:11px;letter-spacing:2px}
+main[dir="rtl"] .plants-hero-copy,main[dir="rtl"] .plants-crumbs{direction:rtl;text-align:right}
+main[dir="rtl"] .plants-hero-copy .eyebrow{letter-spacing:0}
+main[dir="rtl"] .plants-hero-copy h1{font-family:'Segoe UI',Arial,sans-serif;letter-spacing:-.05em}
+.plants-browse{padding-block:90px 110px}
+.plants-section-heading{display:flex;align-items:end;justify-content:space-between;gap:30px}
+.plants-section-heading h2{font-size:clamp(39px,4.3vw,60px);margin:12px 0 13px}
+.plants-section-heading p{font-size:16px;max-width:650px}
+.plants-count{font:400 62px/1 Georgia,serif;color:#a5b498;white-space:nowrap}
+.plants-count small{font:600 12px/1.3 'Segoe UI',Arial,sans-serif;color:#758274;display:block;text-align:center;margin-top:6px;letter-spacing:.3px}
+.plants-tools{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:48px;padding-bottom:22px;border-bottom:1px solid #dbe2d6}
+.plants-search{display:flex;align-items:center;gap:10px;width:min(410px,100%);padding:11px 15px;border:1px solid #d6decf;border-radius:8px;background:#fff;color:#63765e}
+.plants-search:focus-within{border-color:var(--green);box-shadow:0 0 0 3px #386d3620}
+.plants-search input{border:0;outline:0;background:transparent;min-width:0;width:100%;font-size:14px;color:var(--ink)}
+.plants-search input:focus-visible{outline:none}
+.plants-search button{border:0;background:transparent;color:#61715c;padding:2px;display:grid;place-items:center}
+.plants-filters{display:flex;flex-wrap:wrap;gap:7px}
+.plants-filters button{border:1px solid #d9e0d2;background:transparent;border-radius:999px;padding:9px 15px;color:#4a6049;font-size:13px;font-weight:600;transition:background .2s,color .2s}
+.plants-filters button:hover{background:#edf3e4}
+.plants-filters button.active{background:#244f34;border-color:#244f34;color:#fff}
+.plants-results{font-size:13px;color:#758271;margin:18px 0 22px}
+.plants-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 23px}
+.plant-card{min-width:0;display:block;border:1px solid #e2e6dc;border-radius:12px;overflow:hidden;background:#fff;transition:transform .25s,box-shadow .25s}
+.plant-card:hover{transform:translateY(-5px);box-shadow:0 20px 45px #1f402018}
+.plant-card-image{position:relative;aspect-ratio:1.06;overflow:hidden;background:#e8eadf}
+.plant-card-image img{width:100%;height:100%;object-fit:cover;object-position:center 44%;transition:transform .55s}
+.plant-card:hover .plant-card-image img{transform:scale(1.045)}
+.plant-card-index{position:absolute;top:18px;left:18px;background:#f9fbf3ed;padding:5px 10px;border-radius:5px;color:#33523b;font-size:12px;font-weight:700;letter-spacing:1px}
+.plant-card-content{padding:22px 23px 25px}
+.plant-card-scientific,.plant-latin{display:block;font-style:italic;color:#788876;font-size:13px}
+.plant-card-title{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:8px 0 11px}
+.plant-card-title h3{font-family:Georgia,'Times New Roman',serif;font-size:29px;font-weight:400;letter-spacing:-.035em}
+.plant-card-title>span{display:grid;place-items:center;width:34px;height:34px;border:1px solid #dce6d6;border-radius:50%;color:#376e38;transition:background .2s,color .2s}
+.plant-card:hover .plant-card-title>span{background:#386d36;color:white}
+.plant-card-content>p{font-size:13px;line-height:1.7;min-height:67px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.plant-card-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:19px}
+.plant-card-tags span{background:#f0f4e9;border-radius:5px;color:#496248;font-size:11px;line-height:1.4;padding:6px 8px}
+.plants-empty{text-align:center;padding:70px 20px;border:1px dashed #cdd9c6;border-radius:12px;color:#526a50}
+.plants-empty svg{margin:auto}.plants-empty h3{margin-top:12px;font-size:22px}.plants-empty p{margin:7px 0 15px}.plants-empty button{border:0;background:none;margin:auto}
+.plants-guide-banner{display:flex;justify-content:space-between;align-items:center;gap:35px;padding:45px 50px;margin-bottom:100px;border-radius:15px;background:#eaf0df}
+.plants-guide-banner h2{font-size:clamp(31px,3vw,43px);margin:11px 0 13px}.plants-guide-banner p{max-width:680px;font-size:15px}
+.plants-guide-banner .button{flex-shrink:0}
+.plant-detail{padding-top:30px}
+.plant-detail .breadcrumbs{margin-bottom:28px}
+.plant-detail-lead{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,100px);align-items:center}
+.plant-detail-photo{height:min(660px,58vw);min-height:480px;border-radius:12px;overflow:hidden;background:#e9ede4}
+.plant-detail-photo img{width:100%;height:100%;object-fit:cover;object-position:center 46%}
+.plant-detail-intro h1{font-size:clamp(59px,6.5vw,96px);margin:20px 0 10px;line-height:1.04}
+.plant-detail-intro h1 span{color:#90ac6e}
+.plant-detail-intro .plant-latin{font-size:17px}
+.plant-detail-summary{font-size:18px;line-height:1.85;margin-top:28px;max-width:550px}
+.plant-quick-facts{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:36px}
+.plant-quick-facts>div{border:1px solid #dce5d8;border-radius:9px;background:#f5f7f0;padding:17px 18px;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.plant-quick-facts svg{color:#557c44;margin-bottom:4px}
+.plant-quick-facts span{color:#778570;font-size:12px}
+.plant-quick-facts strong{font-size:14px;font-weight:650;line-height:1.45}
+.plants-back-link{display:inline-flex;align-items:center;gap:9px;margin-top:29px;font-size:14px;color:#386d36;font-weight:700}
+.plants-back-link:hover{text-decoration:underline}
+.plant-detail-body{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:85px;margin-top:110px}
+.plant-detail-main>h2{font-size:clamp(37px,4vw,54px);margin:11px 0 25px}
+.plant-care-block{display:grid;grid-template-columns:47px 1fr;gap:16px;border-top:1px solid #dce4d8;padding:27px 0}
+.plant-care-number{color:#8aa27f;font-family:Georgia,serif;font-size:23px}
+.plant-care-block h3{display:flex;align-items:center;gap:11px;font-size:20px}
+.plant-care-block h3 svg{color:#5b7d48}
+.plant-care-block p{font-size:16px;line-height:1.85;margin-top:9px;max-width:730px}
+.plant-guide-link{display:inline-flex;align-items:center;gap:10px;margin-top:13px;font-size:15px;font-weight:700;color:#386d36;border-bottom:1px solid #386d36;padding-bottom:4px}
+.plant-guide-link:hover{color:#284e2f}
+.plant-source{font-size:12px;margin-top:28px}
+.plant-source a{color:#386d36;text-decoration:underline;text-underline-offset:3px}
+.plant-detail-aside{align-self:start;position:sticky;top:28px;background:#eff3e8;padding:26px;border-radius:11px;border-top:4px solid #8aa968}
+.plant-detail-aside p{font-size:14px;line-height:1.85;margin-top:15px}
+.plant-related{padding-block:105px 120px}
+.plant-related h2{font-size:clamp(35px,3.6vw,49px);margin:12px 0 27px}
+.plant-related>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.plant-related a{display:flex;align-items:center;gap:20px;border:1px solid #e0e7da;border-radius:9px;overflow:hidden;background:#fff;transition:transform .2s}
+.plant-related a:hover{transform:translateY(-3px)}
+.plant-related img{width:135px;height:125px;object-fit:cover}
+.plant-related a span{display:flex;flex-direction:column;gap:3px;flex:1}
+.plant-related strong{font:400 23px Georgia,serif}
+.plant-related small{font-size:12px;color:#778673;font-style:italic}
+.plant-related a>svg{color:#537b43;margin-inline-end:22px}
+main[dir="rtl"] .plant-card-title h3,main[dir="rtl"] .plant-detail h1,main[dir="rtl"] .plant-detail h2,main[dir="rtl"] .plant-related strong,main[dir="rtl"] .plants-section-heading h2,main[dir="rtl"] .plants-guide-banner h2{font-family:'Segoe UI',Arial,sans-serif;letter-spacing:-.04em}
+main[dir="rtl"] .plant-card-index{left:auto;right:18px}
+@media(max-width:1200px){.desktop-nav{gap:16px}.plants-tools{align-items:flex-start;flex-direction:column}.plants-filters{width:100%}}
+@media(max-width:900px){.plants-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.plant-detail-lead{gap:35px}.plant-detail-body{gap:40px;grid-template-columns:minmax(0,1fr) 240px}.plant-detail-photo{height:540px;min-height:0}.plant-detail-intro h1{font-size:58px}}
+@media(max-width:700px){.plants-hero{height:690px}.plants-hero-photo{object-position:66% center}.plants-hero-shade{background:linear-gradient(90deg,rgba(5,24,15,.84),rgba(5,24,15,.55) 65%,rgba(5,24,15,.28)),linear-gradient(0deg,rgba(5,24,15,.5),transparent 30%)}.plants-hero-copy{max-width:550px}.plants-hero-copy h1{font-size:clamp(48px,10vw,70px)}.plants-hero-copy>p{font-size:16px}.plants-hero-bottom{font-size:10px}.plants-browse{padding-block:62px 80px}.plants-section-heading h2{font-size:38px}.plants-count{font-size:48px}.plants-grid{gap:15px}.plant-card-content{padding:18px}.plant-card-title h3{font-size:24px}.plant-card-content>p{font-size:12px}.plants-guide-banner{padding:30px;display:block;margin-bottom:70px}.plants-guide-banner .button{margin-top:25px}.plant-detail-lead{grid-template-columns:1fr;gap:30px}.plant-detail-photo{height:520px}.plant-detail-intro h1{font-size:64px}.plant-detail-body{grid-template-columns:1fr;margin-top:85px}.plant-detail-aside{position:static}.plant-related{padding-block:75px}}
+@media(max-width:480px){.plants-hero{height:650px}.plants-hero-copy h1{font-size:47px}.plants-hero-bottom span:last-child{display:none}.plants-section-heading{align-items:start}.plants-section-heading h2{font-size:33px}.plants-section-heading p{font-size:14px}.plants-count{font-size:36px}.plants-count small{font-size:10px}.plants-filters button{font-size:12px;padding:8px 11px}.plants-grid{grid-template-columns:1fr;gap:22px}.plant-card-image{aspect-ratio:1.13}.plant-card-content>p{min-height:0;font-size:13px}.plant-card-title h3{font-size:28px}.plant-detail-photo{height:440px}.plant-detail-intro h1{font-size:55px}.plant-detail-summary{font-size:16px}.plant-quick-facts{gap:7px}.plant-quick-facts>div{padding:13px}.plant-related>div{grid-template-columns:1fr}.plant-related img{width:115px;height:110px}}
+@media(prefers-reduced-motion:reduce){.plant-card,.plant-card-image img,.plant-related a{transition:none}}

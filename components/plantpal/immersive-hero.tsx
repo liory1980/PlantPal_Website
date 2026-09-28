@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowDown, ArrowUpRight, Leaf, Pause, Play } from 'lucide-react';
+import { ArrowUpRight, Leaf, Pause, Play } from 'lucide-react';
 import { DownloadButton } from './shared';
 
 export function ImmersiveHero() {
@@ -19,7 +19,7 @@ export function ImmersiveHero() {
       </div>
       <div className="hero-bottom-row">
         <span>יותר ידע על הצמחים. יותר ביטחון בטיפול.</span>
-        <a className="hero-play-link" href="#plant-playground"><span>יוצאים להרפתקה קטנה.<strong>בואו לשחק עם PlantPal</strong></span><ArrowDown size={21} /></a>
+        
         <button className="hero-motion-button" onClick={() => setPaused(!paused)} aria-label={paused ? 'הפעלת תנועת הרקע' : 'עצירת תנועת הרקע'} aria-pressed={paused}>{paused ? <Play size={16} /> : <Pause size={16} />}</button>
       </div>
     </div>

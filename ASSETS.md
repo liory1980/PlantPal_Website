@@ -27,3 +27,24 @@ Optimization command from the site folder:
 - `public/images/leaf-detail-hero.webp` (1672 × 941, 173 KB): generated dew-covered foliage for plant guides, troubleshooting, and glossary headers. Original in `../hero-assets/leaf-detail-hero.png`.
 - Both created with built-in imagegen for this site, one generation each. Photoreal botanical photography, dark left composition for readable text, subjects and warm sunlight on the right, no text or logos. Decorative images, not identification references.
 - Game sounds are short original oscillator melodies synthesized locally with Web Audio; no recordings, external audio requests, or autoplay before a play action.
+
+## Houseplant collection
+
+The 11 assets in `public/images/plants/` were generated for this project with the built-in imagegen tool on 2026-09-28 and optimized locally to WebP with Sharp. They do not use stock photography or third-party image files. The catalog images are editorial illustrations of each species, not diagnostic identification references. Generated images should still be checked against living specimens when botanical accuracy matters.
+
+Hero prompt: photorealistic wide houseplant catalog photograph in a sophisticated sunlit conservatory, with mature monstera, trailing golden pothos, upright snake plant, peace lily and fiddle-leaf fig; plants concentrated at center and right, dark negative space on the left for copy; warm late-afternoon light, terracotta and handmade ceramic pots, natural botanical detail, no people, text, logos or watermarks.
+
+Each portrait used this prompt set: photorealistic natural editorial houseplant catalog card; one correctly shaped, clearly identifiable specimen with the full plant and pot visible; tactile interior materials, luminous morning window light, natural greens and subtle imperfections; vertical 4:5 framing; no text, people, logos, watermarks or other prominent plants. Subjects and settings were:
+
+| File | Subject and setting |
+| --- | --- |
+| `monstera.webp` | Mature fenestrated Monstera deliciosa, climbing support, plaster wall and terracotta pot. |
+| `pothos.webp` | Golden variegated Epipremnum aureum trailing over an oak shelf. |
+| `snake-plant.webp` | Upright Dracaena trifasciata in a sand-colored planter. |
+| `zz-plant.webp` | Glossy Zamioculcas zamiifolia on a walnut sideboard. |
+| `peace-lily.webp` | Spathiphyllum with white spathes in a clay planter. |
+| `rubber-plant.webp` | Ficus elastica with broad glossy leaves in terracotta. |
+| `spider-plant.webp` | Striped Chlorophytum comosum with plantlets on a shelf. |
+| `fiddle-leaf-fig.webp` | Ficus lyrata with violin-shaped leaves in a stoneware planter. |
+| `heartleaf-philodendron.webp` | Trailing Philodendron hederaceum on a walnut shelf. |
+| `aloe-vera.webp` | Aloe vera rosette on a bright limestone windowsill. |

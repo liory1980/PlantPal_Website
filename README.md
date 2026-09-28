@@ -75,12 +75,16 @@ AI drafting runs on the PC. The hosted site requires no OpenAI key.
 
 Implementation references: [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs) and [OpenAI web search](https://developers.openai.com/api/docs/guides/tools-web-search). Horticultural/product links appear in relevant guides. See [ASSETS.md](ASSETS.md) for image provenance.
 
-## Interactive homepage
+## Interactive garden game
 
-The full-width hero is 600–800px tall (720px on mobile), with an optimized greenhouse image, gentle motion, a pause control, and reduced-motion support. The WebGL playground below it lazy-loads Three.js and the owner's optimized plant model only when the game enters view. Arrow keys or WASD move, Space jumps, Escape pauses; pointer controls support phones. Keyboard input is scoped to the focused garden. The game pauses when offscreen or the browser loses focus and has load/error recovery. The game has three stages: Morning meadow (5 suns, 90 seconds), Bramble crossing (6 suns, 80 seconds), and Golden-hour dash (7 suns, 70 seconds). Later stages use narrower, taller stones and moving orange brambles. Each stage starts with three lives; hits respawn the plant with brief invulnerability. Collect all suns to advance, retry the current stage after losing, or restart the full adventure after winning. Pausing freezes the clock. Pickup sounds, hit tones, and completion melodies start only after Play, with an on-screen mute toggle. No score or personal information is stored.
+The homepages link to `/game` and `/he/game` through a compact banner. The dedicated game pages load the WebGL playground when it enters view. The homepage hero still has an optimized greenhouse image, gentle motion, a pause control, and reduced-motion support. Arrow keys or WASD move, Space jumps, Escape pauses; pointer controls support phones. Keyboard input is scoped to the focused garden. The game pauses when offscreen or the browser loses focus and has load/error recovery. The game has three stages: Morning meadow (5 suns, 90 seconds), Bramble crossing (6 suns, 80 seconds), and Golden-hour dash (7 suns, 70 seconds). Later stages use narrower, taller stones and moving orange brambles. Each stage starts with three lives; hits respawn the plant with brief invulnerability. Collect all suns to advance, retry the current stage after losing, or restart the full adventure after winning. Pausing freezes the clock. Pickup sounds, hit tones, and completion melodies start only after Play, with an on-screen mute toggle. No score or personal information is stored.
 
 Game files: `components/plantpal/plant-playground.tsx` (controls), `plant-game-engine.ts` (Three.js renderer), and `lib/plant-game-physics.ts` (movement/collision). See ASSETS.md for model provenance and optimization.
 
 Primary-page headers share `components/plantpal/page-hero.tsx`: full-width photos, pause/reduced-motion support, and direct anchors to their content. App, library, glossary, and five category pages use this treatment.
+
+## Houseplant collection
+
+`/plants` and its ten species profiles are available in all ten site languages. Add a species to `lib/plants.ts`, then provide its name, summary, and care tip for the eight additional languages in `lib/plants-l10n.ts`. The catalog, profile routes, metadata, alternate-language links, and sitemap use this shared list. Plant images live in `public/images/plants/`; generation details are recorded in `ASSETS.md`.
 
 Run deterministic gameplay checks with `node --experimental-strip-types scripts/check-game.mjs` on Node 22.13+. They cover all platform heights, progression, timers, collisions, and lives.
