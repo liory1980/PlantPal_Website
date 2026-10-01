@@ -3,6 +3,7 @@ import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {postSchema} from '../lib/post-schema.mjs';
 import {dir,lock,siteUrl,authHeaders,log,readJson,atomicJson,exists} from './runtime.mjs';
+import {requireFirstPostApproval} from './review-approval.mjs';
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 export async function publishQueue({dryRun=false}={}){return lock('publish',async()=>{
  const files=(await readdir(dir('queue'))).filter(n=>n.endsWith('.json')).sort();
@@ -12,6 +13,7 @@ export async function publishQueue({dryRun=false}={}){return lock('publish',asyn
   try{
    const file=path.join(dir('queue'),name);const article=postSchema.parse(await readJson(file));
    if(article.status!=='published')throw new Error('Queue articles must explicitly have status published. Keep unapproved content in drafts.');
+   await requireFirstPostApproval(article);
    if(dryRun){await log(`Validated ${article.slug}; dry run, no request sent.`);continue;}
    const endpoint=siteUrl()+'/api/content';let response;
    for(let attempt=0;attempt<3;attempt++){

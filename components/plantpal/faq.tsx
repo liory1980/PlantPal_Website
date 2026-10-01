@@ -7,4 +7,4 @@ const questions=[
   ['מהו Plant Sitter?','כלי שמרכז הנחיות טיפול ברורות עבור מי ששומר על הצמחים בזמן שאתם בחופשה או מחוץ לבית. כך קל להמשיך את השגרה בלי לנחש.'],
   ['האם אפשר לנהל הרבה צמחים?','כן. אפשר לתעד את אוסף הצמחים ולארגן אותו לפי אזורים כמו סלון, חדר שינה, משרד או מרפסת, עם מידע ותזכורות לכל צמח.'],
 ];
-export function FAQ(){return <Accordion className="faq">{questions.map(([q,a],i)=><AccordionItem key={q} value={`q-${i}`}><AccordionTrigger>{q}</AccordionTrigger><AccordionContent><p>{a}</p></AccordionContent></AccordionItem>)}</Accordion>}
+export function FAQ(){return <Accordion type="single" collapsible className="faq">{questions.map(([q,a],i)=><AccordionItem key={q} value={`q-${i}`}><AccordionTrigger>{q}</AccordionTrigger><AccordionContent><p>{a}</p></AccordionContent></AccordionItem>)}</Accordion>}

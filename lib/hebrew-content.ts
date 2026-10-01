@@ -1,4 +1,5 @@
 import type {Article, Section} from './content';
+import {articleCopies} from './l10n';
 
 type HebrewArticle = Pick<Article, 'title'|'description'|'takeaway'> & {headings?: string[]};
 
@@ -249,6 +250,8 @@ function localizedSections(article: Article, headings: string[]): Section[] {
 }
 
 export function localizeArticle(article: Article): Article {
+  const full = articleCopies.he[article.slug];
+  if (full) return {...article, ...full, author: 'צוות PlantPal'};
   const translated = translations[article.slug];
   if (!translated) return article;
   return {

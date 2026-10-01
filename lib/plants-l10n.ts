@@ -1,6 +1,7 @@
 import {packs, newLocaleCodes, type NewLocale} from './multilingual';
 import {plants, type Plant} from './plants';
 import {SITE_URL} from './config';
+import {localeExtras} from './l10n/extras';
 
 export type PlantLocale = 'en' | 'he' | NewLocale;
 export type PlantGroup = 'easy' | 'statement' | 'trailing';
@@ -231,7 +232,8 @@ export function localizedPlant(plant:Plant,locale:PlantLocale){
   const care=careTranslations[locale];
   const light=lightKind[plant.light],water=waterKind[plant.water];
   if(!light||!water)throw new Error(`Missing care type for ${plant.slug}`);
-  return {name:translation[0],intro:translation[1],tip:translation[2],light:care.lightLabels[light],water:care.waterLabels[water],lightCare:care.lightAdvice[light],waterCare:care.waterAdvice[water]};
+  const copy=localeExtras[locale]?.plants[plant.slug];
+  return {name:translation[0],intro:copy?.intro??translation[1],tip:copy?.tip??translation[2],light:care.lightLabels[light],water:care.waterLabels[water],lightCare:copy?.lightCare??care.lightAdvice[light],waterCare:copy?.waterCare??care.waterAdvice[water]};
 }
 
 export function plantSearchText(plant:Plant,locale:PlantLocale){const local=localizedPlant(plant,locale);return `${local.name} ${plant.name} ${plant.nameHe} ${plant.scientific}`.toLocaleLowerCase(plantLang(locale))}

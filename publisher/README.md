@@ -8,7 +8,7 @@ Use Node 22.13+ and install project dependencies. `.env.publisher` on this PC al
 
 ## Queue reviewed articles
 
-Create `publisher/queue/your-guide.json`. This is the payload shape; replace the illustrative paragraphs with at least 300 words across three or more sections:
+Prepare an English source draft in `publisher/drafts/your-guide.json`. This illustrates the payload shape; replace the example with at least 300 words across three or more sections:
 
 ```json
 {
@@ -25,12 +25,17 @@ Create `publisher/queue/your-guide.json`. This is the payload shape; replace the
   "related": ["how-to-water-houseplants", "bright-indirect-light"],
   "sources": [{"title": "RHS houseplant growing guide", "url": "https://www.rhs.org.uk/plants/types/houseplants/growing-guide"}],
   "author": "PlantPal",
-  "status": "published",
+  "locale": "en",
+  "status": "draft",
   "publishedAt": "2026-10-01T06:00:00.000Z"
 }
 ```
 
 Categories: `plant-guides`, `plant-care`, `troubleshooting`, `soil-fertilizer`, `tips`. Use plain text, not HTML. Publication dates must use ISO 8601 with a timezone and are normalized to UTC. Omit the date for publication on acceptance; future dates keep articles hidden until due.
+
+Before moving a draft to `publisher/queue/`, add a `translations` object with full `title`, `description`, `takeaway`, and `sections` for `he`, `fr`, `it`, `hi`, `zh`, `ar`, `pt`, `ru`, and `es`. Each translation must be substantive and use the local language throughout. Set `status` to `published` only after reviewing all ten versions. The schema rejects incomplete published posts. The request limit is 512 KB. Confirm that the multilingual site change is deployed and each live language route works before queueing a post.
+
+The first complete article must be shown to the owner before publication. Include all ten rendered versions, metadata, sources, and intended URLs in the review package. The owner can request edits; only their explicit approval of the final version permits the first publish. The local publisher requires a matching, content-hash-bound approval record at `../content-ops/approvals/first-publication.json` and refuses to send the first API post without it. See that directory's README. The first sample is currently a source-page refresh, whose deployment must be reviewed separately. Automatic publishing and its schedule remain off.
 
 ```powershell
 # Validate only: no publishing or generation calls
@@ -51,9 +56,9 @@ node --env-file=.env.publisher publisher/run.mjs --generate
 
 Each run selects one unused topic from `topics.json`, checks the live sitemap, gathers primary-source research, and generates one structured article. At least two cited HTTPS sources are required, and the output can cite only URLs returned during research. This uses two model calls per new topic; saved research can be reused after failure. Paid generation calls are not automatically retried.
 
-Default `AUTO_PUBLISH=false` saves generated content in `publisher/drafts/`. Review the writing and sources, change `status` to `published`, optionally set a publication time, then move it to `queue/`.
+Default `AUTO_PUBLISH=false` saves generated English content in `publisher/drafts/`. Translate and review all ten versions, change `status` to `published`, optionally set a publication time, then move it to `queue/`.
 
-Set `AUTO_PUBLISH=true` to explicitly enable research → generation → validation → API publication. Source checks and exact duplicate detection do not guarantee correctness or global uniqueness. Editorial review is preferable for reliable content. `--dry-run` suppresses generation even if `--generate` is supplied.
+`AUTO_PUBLISH=true` is currently blocked before any paid generation call because this generator produces English only. The ten-language workflow needs a translation and QA stage before automatic publication can be enabled. `--dry-run` suppresses generation even if `--generate` is supplied.
 
 Lock files prevent overlapping runs. After a crash, confirm no publisher process is running before removing a stale `publisher/state/*.lock` file.
 
@@ -91,7 +96,7 @@ Add `--generate` only after configuring generation. Restrict the environment fil
 
 ## API contract
 
-Require `Authorization: Bearer <CONTENT_API_KEY>` on every management/write endpoint. Use `Content-Type: application/json`. Payloads are limited to 96 KB.
+Require `Authorization: Bearer <CONTENT_API_KEY>` on every management/write endpoint. Use `Content-Type: application/json`. Payloads are limited to 512 KB in the local multilingual code; the live site must be redeployed before relying on that limit.
 
 - `POST /api/content`: create. 201 on creation, 200 on exact retry, 409 for conflicting slug or duplicate normalized body.
 - `GET /api/content/{slug}`: retrieve an API-created article (including a draft) and its revision/ETag. Requires authentication.

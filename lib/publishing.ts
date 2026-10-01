@@ -8,7 +8,7 @@ export async function readPayload(request:Request){
  if(!request.headers.get('content-type')?.toLowerCase().includes('application/json'))throw new PublishError(415,'Use Content-Type: application/json.');
  if(!request.body)throw new PublishError(400,'A JSON body is required.');
  const reader=request.body.getReader();const chunks:Uint8Array[]=[];let size=0;
- while(true){const {value,done}=await reader.read();if(done)break;size+=value.length;if(size>96000){await reader.cancel();throw new PublishError(413,'Article payload exceeds 96 KB.');}chunks.push(value);}
+ while(true){const {value,done}=await reader.read();if(done)break;size+=value.length;if(size>512000){await reader.cancel();throw new PublishError(413,'Article payload exceeds 512 KB.');}chunks.push(value);}
  const bytes=new Uint8Array(size);let offset=0;for(const c of chunks){bytes.set(c,offset);offset+=c.length;}
  let value;try{value=JSON.parse(new TextDecoder().decode(bytes));}catch{throw new PublishError(400,'Invalid JSON.');}
  const parsed=postSchema.safeParse(value);if(!parsed.success)throw new PublishError(422,'Article validation failed.',parsed.error.flatten());return parsed.data;
